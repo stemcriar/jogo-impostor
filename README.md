@@ -20,37 +20,48 @@ O sistema utiliza arquitetura cliente-servidor construída em:
 
 ## Como Executar (Desenvolvimento)
 
-1. **Instale as dependências**:
+Para simplificar, o projeto possui um gerenciador de execução unificado na raiz do repositório. Siga os passos:
+
+1. **Instale todas as dependências**:
+   Abra o terminal na raiz do projeto (`jogo-impostor`) e instale tanto o frontend quanto o backend de uma vez:
    ```bash
+   npm install
    cd server && npm install
    cd ../client && npm install
+   cd ..
    ```
 
-2. **Inicie o ambiente de desenvolvimento**:
-   Na raiz do projeto (ou dentro da pasta `client`), inicie os servidores:
+2. **(Opcional) Variáveis de Ambiente**:
+   Copie o arquivo `.env.example` para `.env` na raiz do projeto se quiser customizar os PINs:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. **Inicie o ambiente de desenvolvimento**:
+   Ainda na raiz do projeto, inicie os servidores (backend e frontend iniciarão juntos):
    ```bash
    npm run dev
    ```
-   Isso iniciará o Vite e o servidor Fastify simultaneamente.
+   * O Frontend (Vite) rodará em `http://localhost:5173`
+   * O Backend (Fastify/Sockets) rodará em `http://localhost:3000`
 
 ## Como Executar (Produção / Raspberry Pi)
 
-1. **Faça o build do frontend**:
-   ```bash
-   cd client
-   npm run build
-   ```
-   *Isso irá gerar a pasta estática `dist/`.*
+Quando for hospedar o projeto definitivamente na rede local (ex: Raspberry Pi):
 
-2. **Inicie o servidor de produção**:
+1. **Faça o build e inicie o servidor unificado**:
+   Na raiz do projeto, rode:
    ```bash
-   cd ../server
+   npm run build
    npm start
    ```
-   O servidor irá automaticamente servir os arquivos do `client/dist/` e exibir no console o IP local (ex: `http://192.168.1.100:3000`), para onde todos os alunos e monitores deverão acessar.
+   *O comando `build` compila o frontend e o comando `start` sobe o backend na porta `3000`, servindo os arquivos estáticos na rede.*
+
+2. **Acesso pela Rede**:
+   O terminal exibirá o seu IP local (ex: `http://192.168.1.100:3000`). Forneça este link aos alunos e abra nos dispositivos (celular do mentor e projeção).
 
 ## PINs de Acesso Padrão
 
-Caso não alterados no `.env`, os PINs padrão são:
+Caso não sejam alterados no `.env`, os PINs padrão são:
 - **Painel do Mentor**: `87654321` (Acesso para gerenciar e criar partidas).
 - **Dashboard de Projeção**: `12344321` (Tela grande para acompanhamento dos alunos).
