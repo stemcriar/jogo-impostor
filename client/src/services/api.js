@@ -8,12 +8,15 @@ class ApiError extends Error {
 }
 
 const fetchJson = async (endpoint, options = {}) => {
+  const headers = { ...options.headers };
+  
+  if (options.body) {
+    headers['Content-Type'] = 'application/json';
+  }
+
   const res = await fetch(`${API_BASE}${endpoint}`, {
     ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...options.headers,
-    },
+    headers,
   });
   
   const data = await res.json().catch(() => ({}));

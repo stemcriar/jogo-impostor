@@ -159,6 +159,7 @@ export const StateManager = {
   },
   deleteGame(gameId) {
     activeGames.delete(gameId);
+    GameModel.remove(gameId);
   },
   getActiveGames() {
     return Array.from(activeGames.values());

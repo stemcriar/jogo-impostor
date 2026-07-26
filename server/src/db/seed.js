@@ -5,22 +5,17 @@ export function seedDatabase() {
   if (count > 0) return;
 
   const words = [
-    { keyword: 'Banana', hint: 'Fruta amarela' },
-    { keyword: 'Futebol', hint: 'Esporte com bola' },
-    { keyword: 'Sol', hint: 'Estrela mais próxima' },
-    { keyword: 'Cachorro', hint: 'Melhor amigo do homem' },
-    { keyword: 'Pizza', hint: 'Comida italiana redonda' },
-    { keyword: 'Computador', hint: 'Máquina de processar dados' },
-    { keyword: 'Brasil', hint: 'País do samba' },
-    { keyword: 'Violão', hint: 'Instrumento de 6 cordas' },
-    { keyword: 'Leão', hint: 'Rei da selva' },
-    { keyword: 'Água', hint: 'Líquido essencial' },
-    { keyword: 'Avião', hint: 'Veículo que voa' },
-    { keyword: 'Gato', hint: 'Felino doméstico' },
-    { keyword: 'Café', hint: 'Bebida escura e quente' },
-    { keyword: 'Livro', hint: 'Objeto com páginas para ler' },
-    { keyword: 'Celular', hint: 'Aparelho de comunicação portátil' },
-    { keyword: 'Mar', hint: 'Grande extensão de água salgada' }
+    { keyword: 'Bateria', hint: 'instrumento' },
+    { keyword: 'Quadro', hint: 'decoração' },
+    { keyword: 'Memória', hint: 'mente' },
+    { keyword: 'Massa', hint: 'comida' },
+    { keyword: 'Foco', hint: 'luz' },
+    { keyword: 'Rede', hint: 'balanço' },
+    { keyword: 'Manga', hint: 'fruta' },
+    { keyword: 'Banco', hint: 'dinheiro' },
+    { keyword: 'Ponto', hint: 'costura' },
+    { keyword: 'Linha', hint: 'costura' },
+    { keyword: 'Pasta', hint: 'arquivo' }
   ];
 
   const insert = db.prepare('INSERT INTO words (keyword, hint) VALUES (?, ?)');

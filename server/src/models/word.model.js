@@ -16,7 +16,11 @@ export const WordModel = {
     return this.getById(id);
   },
   remove(id) {
-    db.prepare('DELETE FROM words WHERE id = ?').run(id);
+    const deleteTransaction = db.transaction((wordId) => {
+      db.prepare('UPDATE games SET word_id = NULL WHERE word_id = ?').run(wordId);
+      db.prepare('DELETE FROM words WHERE id = ?').run(wordId);
+    });
+    deleteTransaction(id);
     return true;
   },
   getRandom(excludeId = null) {
