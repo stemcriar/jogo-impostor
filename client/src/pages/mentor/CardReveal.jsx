@@ -13,6 +13,7 @@ function CardRevealContent() {
   const navigate = useNavigate();
   const [currentPlayer, setCurrentPlayer] = useState(1);
   const [isDone, setIsDone] = useState(false);
+  const [canProceed, setCanProceed] = useState(false);
 
   useEffect(() => {
     if (gameState && gameState.phase === PHASES.SETUP) {
@@ -30,6 +31,7 @@ function CardRevealContent() {
   const handleNext = () => {
     if (currentPlayer < totalPlayers) {
       setCurrentPlayer(currentPlayer + 1);
+      setCanProceed(false); // reseta para o próximo aluno
     } else {
       setIsDone(true);
       socket.emit('game:cards_done', { gameId });
@@ -57,10 +59,11 @@ function CardRevealContent() {
               isMachine={isCurrentMachine}
               keyword={word?.keyword}
               hint={word?.hint}
+              onRevealComplete={() => setCanProceed(true)}
             />
 
             <div className="mt-12 w-full">
-              <Button onClick={handleNext} className="w-full" size="lg" id="btn-next-player">
+              <Button onClick={handleNext} className="w-full" size="lg" id="btn-next-player" disabled={!canProceed}>
                 {currentPlayer < totalPlayers ? 'Próximo Aluno' : 'Finalizar Distribuição'}
               </Button>
               <div className="text-center mt-4 text-sm font-semibold text-gray-400">

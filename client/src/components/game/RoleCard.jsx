@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-export default function RoleCard({ role, keyword, hint, isMachine, id }) {
+export default function RoleCard({ role, keyword, hint, isMachine, id, onRevealComplete }) {
   const [isRevealed, setIsRevealed] = useState(false);
 
   const handlePressStart = (e) => {
     e.preventDefault();
     setIsRevealed(true);
+    if (onRevealComplete) {
+      onRevealComplete();
+    }
   };
 
   const handlePressEnd = (e) => {

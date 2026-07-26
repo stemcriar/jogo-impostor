@@ -6,12 +6,7 @@ export default function DashWaiting() {
   const { gameState } = useGame();
 
   return (
-    <div id="dash-waiting" className="min-h-screen bg-white flex flex-col p-8">
-      <header className="flex justify-between items-center mb-auto">
-        <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-16" />
-        <h1 className="text-3xl font-bold text-gray-400 uppercase tracking-widest">{gameState?.name}</h1>
-      </header>
-
+    <div id="dash-waiting" className="flex-1 bg-white flex flex-col rounded-3xl p-8 mb-4">
       <main className="flex-1 flex flex-col items-center justify-center pb-20">
         <div className="scale-150 mb-16">
           <GearAnimation />

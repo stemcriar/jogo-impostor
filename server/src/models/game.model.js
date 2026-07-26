@@ -25,5 +25,13 @@ export const GameModel = {
   },
   getAll() {
     return db.prepare('SELECT * FROM games').all();
+  },
+  remove(id) {
+    const deleteGameTransaction = db.transaction((gameId) => {
+      db.prepare('DELETE FROM votes WHERE game_id = ?').run(gameId);
+      db.prepare('DELETE FROM games WHERE id = ?').run(gameId);
+    });
+    deleteGameTransaction(id);
+    return true;
   }
 };

@@ -1,4 +1,5 @@
 import { StateManager } from '../game/state-manager.js';
+import { GameModel } from '../models/game.model.js';
 import { sanitizeGameState } from './handler.js';
 
 export function handleMentorEvents(io, socket) {
@@ -75,6 +76,16 @@ export function handleMentorEvents(io, socket) {
       case 'new_round':
         StateManager.resetForNewRound(gameId, data.wordId);
         broadcastState(gameId);
+        break;
+      case 'restart_cards':
+        StateManager.updatePhase(gameId, 'card_reveal');
+        broadcastState(gameId);
+        break;
+      case 'delete_game':
+        StateManager.deleteGame(gameId);
+        GameModel.remove(gameId);
+        io.to(gameId).emit('game:deleted');
+        // A desconexão e saída da sala serão gerenciadas no frontend
         break;
     }
   });

@@ -41,9 +41,9 @@ export default function DashPinGate() {
         className="w-full max-w-md"
       >
         <div className="text-center mb-8">
-          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-16 mx-auto mb-6 brightness-0 invert" />
-          <h1 className="text-3xl font-bold text-white mb-2">Painel de Projeção</h1>
-          <p className="text-gray-400">Insira o PIN de acesso à tela principal</p>
+          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-16 mx-auto mb-6" />
+          <h1 className="text-3xl font-bold text-white mb-2">PIN de Acesso</h1>
+          <p className="text-purple-200">Insira o PIN de 8 dígitos para continuar</p>
         </div>
 
         <Card padding="p-8">

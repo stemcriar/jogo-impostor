@@ -6,7 +6,8 @@ export default async function wordRoutes(fastify, options) {
   });
 
   fastify.get('/:id', async (request, reply) => {
-    const word = WordModel.getById(request.params.id);
+    const id = Number(request.params.id);
+    const word = WordModel.getById(id);
     if (!word) return reply.status(404).send({ error: 'Word not found' });
     return word;
   });
@@ -17,12 +18,18 @@ export default async function wordRoutes(fastify, options) {
   });
 
   fastify.put('/:id', async (request) => {
+    const id = Number(request.params.id);
     const { keyword, hint } = request.body;
-    return WordModel.update(request.params.id, { keyword, hint });
+    return WordModel.update(id, { keyword, hint });
   });
 
-  fastify.delete('/:id', async (request) => {
-    WordModel.remove(request.params.id);
-    return { success: true };
+  fastify.delete('/:id', async (request, reply) => {
+    try {
+      const id = Number(request.params.id);
+      WordModel.remove(id);
+      return { success: true };
+    } catch (err) {
+      return reply.status(400).send({ error: 'Erro ao excluir a palavra. Ela pode estar em uso.', details: err.message });
+    }
   });
 }

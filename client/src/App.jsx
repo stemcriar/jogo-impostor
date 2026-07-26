@@ -52,6 +52,7 @@ function App() {
         <Route index element={<DashboardLobby />} />
         <Route path="game/:gameId" element={<DashboardGame />} />
       </Route>
+      <Route path="/dash" element={<Navigate to="/dashboard" replace />} />
       
       {/* Fallback */}
       <Route path="*" element={<Navigate to="/" replace />} />

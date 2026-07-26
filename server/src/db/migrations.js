@@ -22,7 +22,7 @@ export function runMigrations() {
       speaking_order TEXT NOT NULL,
       result TEXT,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (word_id) REFERENCES words (id)
+      FOREIGN KEY (word_id) REFERENCES words (id) ON DELETE SET NULL
     );
 
     CREATE TABLE IF NOT EXISTS votes (
@@ -31,7 +31,7 @@ export function runMigrations() {
       voter_device_id TEXT NOT NULL,
       voted_player INTEGER NOT NULL,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      FOREIGN KEY (game_id) REFERENCES games (id),
+      FOREIGN KEY (game_id) REFERENCES games (id) ON DELETE CASCADE,
       UNIQUE (game_id, voter_device_id)
     );
 

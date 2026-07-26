@@ -4,10 +4,13 @@ import { socket, wsService } from '../../services/ws';
 import { getPhaseLabel } from '../../utils/constants';
 import { MonitorPlay, Users } from 'lucide-react';
 import Card from '../../components/ui/Card';
+import { usePinAuth } from '../../hooks/usePinAuth';
+import Button from '../../components/ui/Button';
 
 export default function DashboardLobby() {
   const [games, setGames] = useState([]);
   const navigate = useNavigate();
+  const { logout } = usePinAuth('dashboard');
 
   useEffect(() => {
     wsService.connect();
@@ -31,9 +34,16 @@ export default function DashboardLobby() {
 
   return (
     <div id="dash-lobby" className="min-h-screen bg-gray-900 p-8 flex flex-col">
-      <header className="flex justify-between items-center mb-12">
-        <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-12 brightness-0 invert" />
-        <h1 className="text-3xl font-bold text-white tracking-wide">Painel de Projeção</h1>
+      <header className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 gap-4 w-full">
+        <div className="flex items-center">
+          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-12" />
+        </div>
+        <div className="flex items-center gap-6">
+          <h1 className="text-xl sm:text-3xl font-bold text-white tracking-wide">Painel de Projeção</h1>
+          <Button variant="ghost" onClick={() => { logout(); navigate('/dashboard/pin'); }} className="text-gray-400 hover:text-white shrink-0">
+            Sair
+          </Button>
+        </div>
       </header>
       
       <main className="flex-1 flex flex-col items-center justify-center max-w-6xl w-full mx-auto">
@@ -60,7 +70,7 @@ export default function DashboardLobby() {
                     onClick={() => navigate(`/dashboard/game/${game.id}`)}
                     className="flex flex-col h-full"
                   >
-                    <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-yellow transition-colors truncate">
+                    <h3 className="text-2xl font-bold text-purple mb-4 group-hover:text-yellow transition-colors truncate">
                       {game.name}
                     </h3>
                     <div className="inline-flex px-3 py-1 bg-purple-900/50 text-purple-200 rounded-full text-sm font-medium w-fit mb-6">

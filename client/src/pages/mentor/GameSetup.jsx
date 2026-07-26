@@ -83,30 +83,22 @@ export default function GameSetup() {
                   <Users className="w-4 h-4 mr-1 text-purple" />
                   Total de Alunos (N)
                 </label>
-                <input 
-                  type="number" 
-                  min="3" 
-                  max="30"
-                  value={formData.totalPlayers}
-                  onChange={(e) => setFormData({...formData, totalPlayers: parseInt(e.target.value) || 3})}
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple focus:outline-none"
-                  id="setup-total"
-                />
+                <div className="flex items-center border border-gray-300 rounded-xl bg-white overflow-hidden h-11">
+                  <button type="button" onClick={() => setFormData({...formData, totalPlayers: Math.max(3, formData.totalPlayers - 1)})} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-purple font-black border-r border-gray-300 text-lg transition-colors flex-1">-</button>
+                  <div className="w-16 text-center font-bold text-gray-900" id="setup-total">{formData.totalPlayers}</div>
+                  <button type="button" onClick={() => setFormData({...formData, totalPlayers: Math.min(30, formData.totalPlayers + 1)})} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-purple font-black border-l border-gray-300 text-lg transition-colors flex-1">+</button>
+                </div>
               </div>
               <div className="flex flex-col">
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Bot className="w-4 h-4 mr-1 text-danger" />
                   Máquinas (K)
                 </label>
-                <input 
-                  type="number" 
-                  min="1" 
-                  max={Math.max(1, formData.totalPlayers - 2)}
-                  value={formData.impostorCount}
-                  onChange={(e) => setFormData({...formData, impostorCount: parseInt(e.target.value) || 1})}
-                  className="px-4 py-2 bg-white border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple focus:outline-none"
-                  id="setup-impostors"
-                />
+                <div className="flex items-center border border-gray-300 rounded-xl bg-white overflow-hidden h-11">
+                  <button type="button" onClick={() => setFormData({...formData, impostorCount: Math.max(1, formData.impostorCount - 1)})} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-danger font-black border-r border-gray-300 text-lg transition-colors flex-1">-</button>
+                  <div className="w-16 text-center font-bold text-gray-900" id="setup-impostors">{formData.impostorCount}</div>
+                  <button type="button" onClick={() => setFormData({...formData, impostorCount: Math.min(Math.max(1, formData.totalPlayers - 2), formData.impostorCount + 1)})} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-danger font-black border-l border-gray-300 text-lg transition-colors flex-1">+</button>
+                </div>
               </div>
             </div>
 
