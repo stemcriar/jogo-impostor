@@ -5,17 +5,17 @@ export function seedDatabase() {
   if (count > 0) return;
 
   const words = [
-    { keyword: 'Bateria', hint: 'instrumento' },
-    { keyword: 'Quadro', hint: 'decoração' },
-    { keyword: 'Memória', hint: 'mente' },
-    { keyword: 'Massa', hint: 'comida' },
-    { keyword: 'Foco', hint: 'luz' },
-    { keyword: 'Rede', hint: 'balanço' },
-    { keyword: 'Manga', hint: 'fruta' },
-    { keyword: 'Banco', hint: 'dinheiro' },
-    { keyword: 'Ponto', hint: 'costura' },
-    { keyword: 'Linha', hint: 'costura' },
-    { keyword: 'Pasta', hint: 'arquivo' }
+    { keyword: 'Bateria', hint: 'Instrumento' },
+    { keyword: 'Quadro', hint: 'Decoração' },
+    { keyword: 'Memória', hint: 'Mente' },
+    { keyword: 'Massa', hint: 'Comida' },
+    { keyword: 'Foco', hint: 'Luz' },
+    { keyword: 'Rede', hint: 'Balanço' },
+    { keyword: 'Manga', hint: 'Fruta' },
+    { keyword: 'Banco', hint: 'Dinheiro' },
+    { keyword: 'Ponto', hint: 'Costura' },
+    { keyword: 'Linha', hint: 'Costura' },
+    { keyword: 'Pasta', hint: 'Arquivo' }
   ];
 
   const insert = db.prepare('INSERT INTO words (keyword, hint) VALUES (?, ?)');

@@ -7,7 +7,7 @@ import Header from '../../components/layout/Header';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
-import { ArrowLeft, Users, Bot } from 'lucide-react';
+import { ArrowLeft, Users, Bot, Lock } from 'lucide-react';
 
 export default function GameSetup() {
   const navigate = useNavigate();
@@ -86,21 +86,26 @@ export default function GameSetup() {
               <p className="text-gray-500 text-sm">Defina as regras para a nova rodada.</p>
             </div>
 
-            <Input 
-              label="Nome da Turma / Partida" 
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              placeholder="Ex: Turma A - Manhã"
-              required
-              disabled={!!editGameId}
-              id="setup-name"
-            />
+            <div>
+              <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
+                Nome da Turma / Partida
+                {!!editGameId && <Lock className="w-3 h-3 ml-2 text-gray-400" />}
+              </label>
+              <Input 
+                value={formData.name}
+                onChange={(e) => setFormData({...formData, name: e.target.value})}
+                placeholder="Ex: Turma A - Manhã"
+                required
+                disabled={!!editGameId}
+                id="setup-name"
+              />
+            </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="flex flex-col">
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Users className="w-4 h-4 mr-1 text-purple" />
-                  Total de Alunos (N)
+                  Total de Alunos
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-xl bg-white overflow-hidden h-11">
                   <button type="button" onClick={() => setFormData({...formData, totalPlayers: Math.max(3, formData.totalPlayers - 1)})} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-purple font-black border-r border-gray-300 text-lg transition-colors flex-1">-</button>
@@ -111,7 +116,7 @@ export default function GameSetup() {
               <div className="flex flex-col">
                 <label className="flex items-center text-sm font-medium text-gray-700 mb-1">
                   <Bot className="w-4 h-4 mr-1 text-danger" />
-                  Máquinas (K)
+                  Máquinas
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-xl bg-white overflow-hidden h-11">
                   <button type="button" onClick={() => setFormData({...formData, impostorCount: Math.max(1, formData.impostorCount - 1)})} className="px-4 py-2 bg-gray-50 hover:bg-gray-100 text-danger font-black border-r border-gray-300 text-lg transition-colors flex-1">-</button>

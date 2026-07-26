@@ -15,7 +15,7 @@ function DashboardGameHeader() {
   return (
     <header className="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4 w-full relative">
       <div className="flex items-center w-full sm:w-1/3 justify-center sm:justify-start">
-        <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-10 shrink-0" />
+        <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-10 shrink-0 cursor-pointer rounded-[10px]" onClick={() => navigate('/')} />
       </div>
       <div className="flex items-center justify-center w-full sm:w-1/3">
         <h1 className="text-xl sm:text-2xl font-bold text-white tracking-wide text-center">

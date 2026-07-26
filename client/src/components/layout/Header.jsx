@@ -7,7 +7,7 @@ export default function Header({ title, showLogo = true, rightContent }) {
       <div className="flex items-center gap-4">
         {showLogo && (
           <Link to="/" className="flex-shrink-0">
-            <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-10 object-contain" />
+            <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-10 object-contain rounded-[10px]" />
           </Link>
         )}
         {title && (

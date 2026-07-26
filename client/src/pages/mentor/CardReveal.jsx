@@ -45,13 +45,13 @@ function CardRevealContent() {
       <div className="flex-1 flex flex-col items-center justify-center p-4">
         {!isDone ? (
           <div className="w-full max-w-md flex flex-col items-center">
-            <div className="mb-8 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-4">
-                <Smartphone className="w-8 h-8 text-purple" />
+            <div className="mb-4 sm:mb-8 text-center">
+              <div className="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 bg-purple-100 rounded-full mb-2 sm:mb-4">
+                <Smartphone className="w-6 h-6 sm:w-8 sm:h-8 text-purple" />
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">Passe o celular para o</h2>
-              <h1 className="text-4xl font-black text-purple mt-2">Aluno {currentPlayer}</h1>
-              <p className="text-gray-500 mt-2 font-medium">Aluno {currentPlayer}, olhe seu cartão em segredo.</p>
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Passe o celular para o</h2>
+              <h1 className="text-3xl sm:text-4xl font-black text-purple mt-1 sm:mt-2">Aluno {currentPlayer}</h1>
+              <p className="text-gray-500 mt-1 sm:mt-2 text-sm sm:text-base font-medium">Aluno {currentPlayer}, olhe seu cartão em segredo.</p>
             </div>
 
             <RoleCard 
@@ -62,7 +62,7 @@ function CardRevealContent() {
               onRevealComplete={() => setCanProceed(true)}
             />
 
-            <div className="mt-12 w-full">
+            <div className="mt-6 sm:mt-12 w-full">
               <Button onClick={handleNext} className="w-full" size="lg" id="btn-next-player" disabled={!canProceed}>
                 {currentPlayer < totalPlayers ? 'Próximo Aluno' : 'Finalizar Distribuição'}
               </Button>

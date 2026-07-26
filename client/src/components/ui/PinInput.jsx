@@ -34,7 +34,7 @@ export default function PinInput({ length = 8, onComplete, id }) {
   };
 
   return (
-    <div id={id} className="flex gap-2 justify-center">
+    <div id={id} className="flex gap-1 sm:gap-2 justify-center">
       {pin.map((digit, index) => (
         <input
           key={index}
@@ -45,7 +45,7 @@ export default function PinInput({ length = 8, onComplete, id }) {
           value={digit}
           onChange={(e) => handleChange(index, e.target.value)}
           onKeyDown={(e) => handleKeyDown(index, e)}
-          className="w-10 h-12 text-center text-xl font-bold bg-white border-2 border-gray-200 rounded-lg focus:border-purple focus:ring-2 focus:ring-purple focus:outline-none transition-all"
+          className="w-8 h-10 sm:w-10 sm:h-12 text-center text-lg sm:text-xl font-bold bg-white border-2 border-gray-200 rounded-lg focus:border-purple focus:ring-2 focus:ring-purple focus:outline-none transition-all"
         />
       ))}
     </div>

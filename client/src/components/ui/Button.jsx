@@ -18,7 +18,8 @@ export default function Button({
     primary: 'bg-yellow text-gray-900 hover:bg-yellow-light focus:ring-yellow-dark',
     secondary: 'bg-white text-purple border-2 border-purple hover:bg-gray-50 focus:ring-purple',
     danger: 'bg-danger text-white hover:bg-red-600 focus:ring-red-500',
-    ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-300'
+    ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 focus:ring-gray-300',
+    purple: 'bg-purple text-white hover:bg-purple-dark focus:ring-purple-light'
   };
 
   const sizes = {

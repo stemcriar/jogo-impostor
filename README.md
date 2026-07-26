@@ -40,6 +40,7 @@ Para simplificar, o projeto possui um gerenciador de execução unificado na rai
 3. **Inicie o ambiente de desenvolvimento**:
    Ainda na raiz do projeto, inicie os servidores (backend e frontend iniciarão juntos):
    ```bash
+   npm run build
    npm run dev
    ```
    * O Frontend (Vite) rodará em `http://localhost:5173`

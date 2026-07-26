@@ -36,7 +36,7 @@ export default function DashboardLobby() {
     <div id="dash-lobby" className="min-h-screen bg-gray-900 p-8 flex flex-col">
       <header className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4 w-full relative">
         <div className="flex items-center w-full sm:w-1/3 justify-center sm:justify-start">
-          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-12" />
+          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-12 cursor-pointer rounded-[10px]" onClick={() => navigate('/')} />
         </div>
         <div className="flex items-center justify-center w-full sm:w-1/3">
           <h1 className="text-xl sm:text-3xl font-bold text-white tracking-wide text-center">Painel de Projeção</h1>
