@@ -55,6 +55,7 @@ export default function WordManager() {
         await api.deleteWord(id);
         loadWords();
       } catch (err) {
+        alert(err.message || 'Erro ao excluir a palavra.');
         console.error(err);
       }
     }

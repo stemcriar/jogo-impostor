@@ -48,11 +48,10 @@ export function handleMentorEvents(io, socket) {
     }
   });
 
-  // game:new_round accepts { gameId, wordId? }
+  // game:new_round accepts { gameId, wordId?, totalPlayers?, impostorCount? }
   socket.on('game:new_round', (data) => {
     const gameId = typeof data === 'string' ? data : data.gameId;
-    const wordId = data?.wordId;
-    StateManager.resetForNewRound(gameId, wordId);
+    StateManager.resetForNewRound(gameId, data);
     broadcastState(gameId);
   });
 
@@ -74,7 +73,7 @@ export function handleMentorEvents(io, socket) {
         break;
       }
       case 'new_round':
-        StateManager.resetForNewRound(gameId, data.wordId);
+        StateManager.resetForNewRound(gameId, data);
         broadcastState(gameId);
         break;
       case 'restart_cards':

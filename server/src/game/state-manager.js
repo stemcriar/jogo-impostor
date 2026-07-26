@@ -125,10 +125,14 @@ export const StateManager = {
 
     return game;
   },
-  resetForNewRound(gameId, wordId) {
+  resetForNewRound(gameId, options = {}) {
     const game = activeGames.get(gameId);
     if (!game) return null;
     
+    if (options.totalPlayers) game.totalPlayers = options.totalPlayers;
+    if (options.impostorCount) game.impostorCount = options.impostorCount;
+
+    const wordId = options.wordId;
     const word = wordId ? WordModel.getById(wordId) : WordModel.getRandom(game.wordId);
     game.wordId = word ? word.id : null;
     game.word = word ? { keyword: word.keyword, hint: word.hint } : null;
@@ -142,6 +146,8 @@ export const StateManager = {
     game.speakingOrder = generateSpeakingOrder(game.roles);
 
     GameModel.update(gameId, {
+      total_players: game.totalPlayers,
+      impostor_count: game.impostorCount,
       word_id: game.wordId,
       phase: game.phase,
       roles_json: JSON.stringify(game.roles),

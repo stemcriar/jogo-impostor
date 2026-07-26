@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { api } from '../../services/api';
+import { socket } from '../../services/ws';
 import PageContainer from '../../components/layout/PageContainer';
 import Header from '../../components/layout/Header';
 import Button from '../../components/ui/Button';
@@ -10,11 +11,17 @@ import { ArrowLeft, Users, Bot } from 'lucide-react';
 
 export default function GameSetup() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const editGameId = searchParams.get('gameId');
+  const editGameName = searchParams.get('name');
+  const editTotalPlayers = searchParams.get('players') ? parseInt(searchParams.get('players'), 10) : 5;
+  const editImpostors = searchParams.get('impostors') ? parseInt(searchParams.get('impostors'), 10) : 1;
+
   const [words, setWords] = useState([]);
   const [formData, setFormData] = useState({
-    name: '',
-    totalPlayers: 5,
-    impostorCount: 1,
+    name: editGameName || '',
+    totalPlayers: editTotalPlayers,
+    impostorCount: editImpostors,
     wordId: ''
   });
   const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +47,19 @@ export default function GameSetup() {
         delete dataToSubmit.wordId; // Let server pick random
       }
 
-      const newGame = await api.createGame(dataToSubmit);
-      navigate(`/mentor/game/${newGame.id}/cards`);
+      if (editGameId) {
+        socket.emit('game:action', { 
+          gameId: editGameId, 
+          action: 'new_round',
+          totalPlayers: dataToSubmit.totalPlayers,
+          impostorCount: dataToSubmit.impostorCount,
+          wordId: dataToSubmit.wordId
+        });
+        navigate(`/mentor/game/${editGameId}/cards`);
+      } else {
+        const newGame = await api.createGame(dataToSubmit);
+        navigate(`/mentor/game/${newGame.id}/cards`);
+      }
     } catch (err) {
       setError('Erro ao criar partida. Verifique os dados.');
       setIsLoading(false);
@@ -74,6 +92,7 @@ export default function GameSetup() {
               onChange={(e) => setFormData({...formData, name: e.target.value})}
               placeholder="Ex: Turma A - Manhã"
               required
+              disabled={!!editGameId}
               id="setup-name"
             />
 

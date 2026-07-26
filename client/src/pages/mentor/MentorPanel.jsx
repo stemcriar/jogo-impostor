@@ -39,7 +39,9 @@ function MentorPanelContent() {
 
   const handleOpenVoting = () => socket.emit('game:action', { gameId, action: 'open_voting' });
   const handleCloseVoting = () => socket.emit('game:action', { gameId, action: 'close_voting' });
-  const handleNewRound = () => socket.emit('game:action', { gameId, action: 'new_round' });
+  const handleNewRound = () => {
+    navigate(`/mentor/setup?gameId=${gameId}&name=${encodeURIComponent(name)}&players=${totalPlayers}&impostors=${machinePlayerNumbers?.length || 1}`);
+  };
   const handleRestartCards = () => socket.emit('game:action', { gameId, action: 'restart_cards' });
   
   const handleDeleteGame = () => {
@@ -52,15 +54,15 @@ function MentorPanelContent() {
 
   return (
     <PageContainer id="mentor-panel">
-      <header className="flex flex-col sm:flex-row items-center sm:justify-between mb-6 gap-4 w-full">
-        <div className="flex items-center gap-4 w-full sm:w-auto overflow-hidden">
-          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-10 shrink-0" />
-          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate" title={name}>{name}</h1>
-        </div>
-        <Button variant="ghost" size="sm" onClick={() => navigate('/mentor')} className="text-gray-500 hover:bg-gray-100 shrink-0 sm:ml-auto w-full sm:w-auto">
+      <header className="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between mb-6 gap-4 w-full relative">
+        <Button variant="ghost" size="sm" onClick={() => navigate('/mentor')} className="text-gray-500 hover:bg-gray-100 shrink-0 self-start sm:self-auto sm:order-last sm:ml-auto">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Voltar
         </Button>
+        <div className="flex items-center gap-4 w-full sm:w-auto overflow-hidden sm:order-first">
+          <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-10 shrink-0" />
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 truncate" title={name}>{name}</h1>
+        </div>
       </header>
 
       <div className="flex-1 mt-2 grid md:grid-cols-2 gap-6">

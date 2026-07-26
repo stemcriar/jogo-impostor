@@ -24,12 +24,16 @@ export default async function wordRoutes(fastify, options) {
   });
 
   fastify.delete('/:id', async (request, reply) => {
+    const id = parseInt(request.params.id, 10);
+    if (isNaN(id)) {
+      return reply.status(400).send({ error: 'ID inválido' });
+    }
+    
     try {
-      const id = Number(request.params.id);
       WordModel.remove(id);
       return { success: true };
-    } catch (err) {
-      return reply.status(400).send({ error: 'Erro ao excluir a palavra. Ela pode estar em uso.', details: err.message });
+    } catch (error) {
+      return reply.status(409).send({ error: 'Esta palavra está vinculada a um jogo e não pode ser excluída.' });
     }
   });
 }

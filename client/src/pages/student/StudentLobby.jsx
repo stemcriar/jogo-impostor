@@ -46,7 +46,7 @@ export default function StudentLobby() {
             <p className="text-gray-400 text-sm mt-2">Aguarde o mentor iniciar uma nova partida.</p>
           </div>
         ) : (
-          <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+          <div className="grid gap-4 grid-cols-1 md:grid-cols-2">
             {games.map(game => (
               <Card 
                 key={game.id} 
@@ -57,8 +57,8 @@ export default function StudentLobby() {
                   onClick={() => navigate(`/game/${game.id}`)}
                   className="flex flex-col h-full"
                 >
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="text-xl font-bold text-purple truncate pr-2">{game.name}</h3>
+                  <div className="flex flex-col items-start gap-2 mb-4">
+                    <h3 className="text-xl font-bold text-purple truncate w-full">{game.name}</h3>
                     <Badge variant="purple" className="shrink-0">{getPhaseLabel(game.phase)}</Badge>
                   </div>
                   
