@@ -11,7 +11,7 @@ export default function Header({ title, showLogo = true, rightContent }) {
           </Link>
         )}
         {title && (
-          <h1 className="text-xl font-bold text-purple hidden sm:block">{title}</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-purple break-words">{title}</h1>
         )}
       </div>
       {rightContent && <div>{rightContent}</div>}

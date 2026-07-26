@@ -8,6 +8,7 @@ import Card from '../../components/ui/Card';
 import Badge from '../../components/ui/Badge';
 import Button from '../../components/ui/Button';
 import Modal from '../../components/ui/Modal';
+import ResultBanner from '../../components/game/ResultBanner';
 import { socket, wsService } from '../../services/ws';
 import { Settings, Play, Square, Users, Bot, ArrowLeft, Eye, EyeOff, RotateCcw, Trash2 } from 'lucide-react';
 
@@ -16,10 +17,13 @@ function MentorPanelContent() {
   const navigate = useNavigate();
   const [isSecretVisible, setIsSecretVisible] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isResultModalOpen, setIsResultModalOpen] = useState(false);
 
   useEffect(() => {
     if (gameState?.phase === PHASES.CARD_REVEAL) {
       navigate(`/mentor/game/${gameId}/cards`);
+    } else if (gameState?.phase === PHASES.RESULT) {
+      setIsResultModalOpen(true);
     }
   }, [gameState?.phase, navigate, gameId]);
 
@@ -35,7 +39,7 @@ function MentorPanelContent() {
 
   const handleOpenVoting = () => socket.emit('game:action', { gameId, action: 'open_voting' });
   const handleCloseVoting = () => socket.emit('game:action', { gameId, action: 'close_voting' });
-  const handleNewRound = () => navigate('/mentor/setup');
+  const handleNewRound = () => socket.emit('game:action', { gameId, action: 'new_round' });
   const handleRestartCards = () => socket.emit('game:action', { gameId, action: 'restart_cards' });
   
   const handleDeleteGame = () => {
@@ -139,17 +143,30 @@ function MentorPanelContent() {
                 Abrir Votação
               </Button>
               
-              <Button 
-                variant="danger" 
-                className="w-full justify-start" 
-                size="lg"
-                disabled={phase !== PHASES.VOTING}
-                onClick={handleCloseVoting}
-                id="btn-close-voting"
-              >
-                <Square className="w-5 h-5 mr-3" />
-                Encerrar Votação e Ver Resultado
-              </Button>
+              {phase !== PHASES.RESULT ? (
+                <Button 
+                  variant="danger" 
+                  className="w-full justify-start" 
+                  size="lg"
+                  disabled={phase !== PHASES.VOTING}
+                  onClick={handleCloseVoting}
+                  id="btn-close-voting"
+                >
+                  <Square className="w-5 h-5 mr-3" />
+                  Encerrar Votação e Ver Resultado
+                </Button>
+              ) : (
+                <Button 
+                  variant="secondary" 
+                  className="w-full justify-start text-purple border-purple-200 hover:bg-purple-50" 
+                  size="lg"
+                  onClick={() => setIsResultModalOpen(true)}
+                  id="btn-view-result"
+                >
+                  <Eye className="w-5 h-5 mr-3" />
+                  Ver Resultado
+                </Button>
+              )}
 
               <hr className="my-6 border-gray-100" />
 
@@ -161,8 +178,8 @@ function MentorPanelContent() {
                 disabled={phase !== PHASES.RESULT}
                 id="btn-new-round"
               >
-                <Users className="w-5 h-5 mr-3" />
-                Configurar Nova Rodada
+                <RotateCcw className="w-5 h-5 mr-3" />
+                Jogar Novamente
               </Button>
 
               <Button 
@@ -170,9 +187,10 @@ function MentorPanelContent() {
                 className="w-full justify-start text-gray-600 border-gray-200 hover:bg-gray-50" 
                 size="lg"
                 onClick={handleRestartCards}
+                disabled={phase !== PHASES.CARD_REVEAL && phase !== PHASES.ROUND}
                 id="btn-restart-cards"
               >
-                <RotateCcw className="w-5 h-5 mr-3" />
+                <Users className="w-5 h-5 mr-3" />
                 Passar Cartas Novamente
               </Button>
               
@@ -189,14 +207,9 @@ function MentorPanelContent() {
             </div>
 
             {phase === PHASES.VOTING && (
-              <div className="mt-8 p-4 bg-purple-50 rounded-xl border border-purple-100">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="font-semibold text-purple-dark">Votos Recebidos</span>
-                  <span className="text-xl font-bold text-purple">{totalVotes || 0} / {totalPlayers}</span>
-                </div>
-                <div className="w-full bg-purple-200 rounded-full h-2.5">
-                  <div className="bg-purple h-2.5 rounded-full transition-all" style={{ width: `${((totalVotes || 0) / totalPlayers) * 100}%` }}></div>
-                </div>
+              <div className="mt-8 p-4 bg-purple-50 rounded-xl border border-purple-100 text-center">
+                <span className="font-semibold text-purple-dark block mb-1">Votos Recebidos</span>
+                <span className="text-3xl font-bold text-purple">{totalVotes || 0}</span>
               </div>
             )}
           </Card>
@@ -210,6 +223,19 @@ function MentorPanelContent() {
         <div className="flex gap-4">
           <Button variant="secondary" className="flex-1" onClick={() => setIsDeleteModalOpen(false)}>Cancelar</Button>
           <Button variant="danger" className="flex-1" onClick={handleDeleteGame}>Excluir Partida</Button>
+        </div>
+      </Modal>
+
+      <Modal isOpen={isResultModalOpen} onClose={() => setIsResultModalOpen(false)} title="Resultado da Rodada">
+        {gameState?.result ? (
+          <ResultBanner result={gameState.result} />
+        ) : (
+          <p className="text-center text-gray-500 py-8">Calculando resultado...</p>
+        )}
+        <div className="mt-6 flex justify-end">
+          <Button variant="primary" onClick={() => setIsResultModalOpen(false)}>
+            Fechar
+          </Button>
         </div>
       </Modal>
     </PageContainer>

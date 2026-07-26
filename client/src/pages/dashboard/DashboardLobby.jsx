@@ -34,13 +34,15 @@ export default function DashboardLobby() {
 
   return (
     <div id="dash-lobby" className="min-h-screen bg-gray-900 p-8 flex flex-col">
-      <header className="flex flex-col sm:flex-row items-center sm:justify-between mb-12 gap-4 w-full">
-        <div className="flex items-center">
+      <header className="flex flex-col sm:flex-row items-center justify-between mb-12 gap-4 w-full relative">
+        <div className="flex items-center w-full sm:w-1/3 justify-center sm:justify-start">
           <img src="/stem-criar-logo.png" alt="STEM Criar" className="h-12" />
         </div>
-        <div className="flex items-center gap-6">
-          <h1 className="text-xl sm:text-3xl font-bold text-white tracking-wide">Painel de Projeção</h1>
-          <Button variant="ghost" onClick={() => { logout(); navigate('/dashboard/pin'); }} className="text-gray-400 hover:text-white shrink-0">
+        <div className="flex items-center justify-center w-full sm:w-1/3">
+          <h1 className="text-xl sm:text-3xl font-bold text-white tracking-wide text-center">Painel de Projeção</h1>
+        </div>
+        <div className="flex items-center justify-center sm:justify-end w-full sm:w-1/3">
+          <Button variant="ghost" onClick={() => { logout(); navigate('/dashboard/pin'); }} className="text-white hover:text-purple-200 shrink-0">
             Sair
           </Button>
         </div>

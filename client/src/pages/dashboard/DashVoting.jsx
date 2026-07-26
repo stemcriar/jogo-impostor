@@ -11,8 +11,8 @@ export default function DashVoting() {
     <div id="dash-voting" className="flex-1 bg-white flex flex-col rounded-3xl p-8 mb-4">
       <main className="flex-1 flex flex-col items-center">
         <div className="flex items-center gap-4 bg-purple-50 px-6 py-3 rounded-2xl border border-purple-100 mb-6">
-          <span className="text-xl font-bold text-purple-dark uppercase tracking-wide">Votos</span>
-          <span className="text-3xl font-black text-purple">{gameState.totalVotes || 0} / {gameState.totalPlayers}</span>
+          <span className="text-xl font-bold text-purple-dark uppercase tracking-wide">Total de Votos</span>
+          <span className="text-3xl font-black text-purple">{gameState.totalVotes || 0}</span>
         </div>
 
         <h2 className="text-5xl font-extrabold text-gray-900 mb-2">

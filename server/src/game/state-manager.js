@@ -129,10 +129,10 @@ export const StateManager = {
     const game = activeGames.get(gameId);
     if (!game) return null;
     
-    const word = wordId ? WordModel.getById(wordId) : WordModel.getRandom();
+    const word = wordId ? WordModel.getById(wordId) : WordModel.getRandom(game.wordId);
     game.wordId = word ? word.id : null;
     game.word = word ? { keyword: word.keyword, hint: word.hint } : null;
-    game.phase = 'setup';
+    game.phase = 'card_reveal';
     game.votes = {};
     game.result = null;
 

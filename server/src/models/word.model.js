@@ -19,7 +19,10 @@ export const WordModel = {
     db.prepare('DELETE FROM words WHERE id = ?').run(id);
     return true;
   },
-  getRandom() {
+  getRandom(excludeId = null) {
+    if (excludeId) {
+      return db.prepare('SELECT * FROM words WHERE id != ? ORDER BY RANDOM() LIMIT 1').get(excludeId) || this.getRandom();
+    }
     return db.prepare('SELECT * FROM words ORDER BY RANDOM() LIMIT 1').get();
   }
 };
