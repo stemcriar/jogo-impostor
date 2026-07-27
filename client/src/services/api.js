@@ -28,8 +28,8 @@ const fetchJson = async (endpoint, options = {}) => {
 };
 
 export const api = {
-  verifyPin: (pin, type) => 
-    fetchJson('/auth/verify-pin', { method: 'POST', body: JSON.stringify({ pin, type }) }),
+  verifyPin: (pin) => 
+    fetchJson('/auth/verify-pin', { method: 'POST', body: JSON.stringify({ pin }) }),
   
   getWords: () => fetchJson('/words'),
   

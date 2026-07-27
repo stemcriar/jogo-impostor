@@ -42,7 +42,7 @@ export default function DashboardLobby() {
           <h1 className="text-xl sm:text-3xl font-bold text-white tracking-wide text-center">Painel de Projeção</h1>
         </div>
         <div className="flex items-center justify-center sm:justify-end w-full sm:w-1/3">
-          <Button variant="ghost" onClick={() => { logout(); navigate('/dashboard/pin'); }} className="text-white hover:text-purple-200 shrink-0">
+          <Button variant="ghost" onClick={() => { logout(); navigate('/login'); }} className="text-white hover:text-purple-200 shrink-0">
             Sair
           </Button>
         </div>

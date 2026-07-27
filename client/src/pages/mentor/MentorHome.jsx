@@ -34,7 +34,7 @@ export default function MentorHome() {
 
   const handleLogout = () => {
     logout();
-    navigate('/mentor/pin');
+    navigate('/login');
   };
 
   return (

@@ -2,12 +2,18 @@ import { config } from '../config.js';
 
 export default async function authRoutes(fastify, options) {
   fastify.post('/verify-pin', async (request, reply) => {
-    const { pin, type } = request.body;
-    let valid = false;
+    const { pin } = request.body;
     
-    if (type === 'mentor' && pin === config.MENTOR_PIN) valid = true;
-    else if (type === 'dashboard' && pin === config.DASHBOARD_PIN) valid = true;
+    if (config.MENTOR_PIN === config.DASHBOARD_PIN) {
+      return reply.status(500).send({ error: 'Erro de configuração: Os PINs não podem ser iguais.' });
+    }
 
-    return { valid };
+    if (pin === config.MENTOR_PIN) {
+      return { valid: true, type: 'mentor' };
+    } else if (pin === config.DASHBOARD_PIN) {
+      return { valid: true, type: 'dashboard' };
+    }
+
+    return { valid: false };
   });
 }
