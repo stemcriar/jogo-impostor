@@ -1,0 +1,13 @@
+[
+  { "id": 1, "keyword": "Bateria", "hint": "Instrumento" },
+  { "id": 2, "keyword": "Quadro",  "hint": "Decoração" },
+  { "id": 3, "keyword": "Memória", "hint": "Mente" },
+  { "id": 4, "keyword": "Massa",   "hint": "Comida" },
+  { "id": 5, "keyword": "Foco",    "hint": "Luz" },
+  { "id": 6, "keyword": "Rede",    "hint": "Balanço" },
+  { "id": 7, "keyword": "Manga",   "hint": "Fruta" },
+  { "id": 8, "keyword": "Banco",   "hint": "Dinheiro" },
+  { "id": 9, "keyword": "Ponto",   "hint": "Costura" },
+  { "id": 10, "keyword": "Linha",  "hint": "Costura" },
+  { "id": 11, "keyword": "Pasta",  "hint": "Arquivo" }
+]
