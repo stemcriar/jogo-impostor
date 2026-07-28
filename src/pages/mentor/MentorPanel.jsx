@@ -17,6 +17,7 @@ export default function MentorPanel() {
   const [isSecretVisible, setIsSecretVisible] = useState(false);
   const [isResultModalOpen, setIsResultModalOpen] = useState(false);
   const [isEndModalOpen, setIsEndModalOpen]   = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   if (!gameState) {
     navigate('/mentor');
@@ -198,7 +199,7 @@ export default function MentorPanel() {
                 variant="ghost"
                 className="w-full justify-start text-danger hover:bg-red-50"
                 size="lg"
-                onClick={handleDeleteGame}
+                onClick={() => setIsDeleteModalOpen(true)}
                 id="btn-delete-game"
               >
                 <Trash2 className="w-5 h-5 mr-3" />
@@ -244,6 +245,17 @@ export default function MentorPanel() {
               Jogar Novamente
             </Button>
           </div>
+        </div>
+      </Modal>
+
+      {/* Modal: Confirmar Apagar */}
+      <Modal isOpen={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} title="Apagar Jogo">
+        <p className="text-gray-600 mb-6">
+          Tem certeza que deseja encerrar e apagar este jogo? Esta ação não pode ser desfeita.
+        </p>
+        <div className="flex gap-4">
+          <Button variant="secondary" className="flex-1" onClick={() => setIsDeleteModalOpen(false)}>Cancelar</Button>
+          <Button variant="danger" className="flex-1" onClick={handleDeleteGame} id="btn-confirm-delete">Apagar</Button>
         </div>
       </Modal>
     </PageContainer>
